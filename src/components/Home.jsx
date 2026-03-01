@@ -73,7 +73,7 @@ const Home = () => {
         <Box width={"100%"} height={"100px"} position={"absolute"} top={0} left={0} sx={{
             bgcolor: "background.paper", px: 10, py: 2
         }} zIndex={100} display={{xs: "flex", md: "flex"}} justifyContent={{xs: "center", lg: "space-between"}} alignItems={'center'}>
-            <Box component={'img'} src={mode === "light" ? logo : logoDark} width={"200px"} height={"60px"}
+            <Box component={'img'} src={mode === "light" ? logo : logoDark} width={"150px"}
             sx={{objectFit: "contain"}}/>
             <IconButton sx={{display: {xs: 'block', lg: "none"}, position: "absolute", top: "30%", left: "10%"}} onClick={() => setOpenDrawer(true)}>
                 <MenuIcon/>

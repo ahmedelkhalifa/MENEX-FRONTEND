@@ -1,6 +1,6 @@
 import { Add, ArrowForward, Close, Delete, Edit, Info, Menu, SentimentDissatisfied, Translate, Update, Warning } from '@mui/icons-material'
 import { Alert, AppBar, Autocomplete, Box, Button, Card, Chip, CircularProgress, debounce, Dialog, Divider, Drawer, FormControl, Grid, IconButton, InputLabel, List, ListItemButton, ListItemText, Modal, OutlinedInput, Paper, Skeleton, Slide, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Tooltip, Typography, useTheme } from '@mui/material'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import OwnerSidebar from './OwnerSidebar'
 import { SketchPicker } from 'react-color'
 import api from '../api'
@@ -17,9 +17,13 @@ const Restaurants_Owner = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [name, setName] = useState("");
+  const nameRef = useRef(null);
   const [address, setAddress] = useState("");
+  const addressRef = useRef(null);
   const [phone, setPhone] = useState("");
+  const phoneRef = useRef(null);
   const [description, setDescription] = useState("");
+  const descRef = useRef(null);
   const [main, setMain] = useState("#6FBF73");
   const [secondary, setSecondary] = useState("#2E3A3A");
   const [textMain, setTextMain] = useState("#2E3A3A");
@@ -463,26 +467,28 @@ const Restaurants_Owner = () => {
                               <OutlinedInput id="name"
                               label={t('restaurants.create.nameLabel')} fullWidth
                               autoComplete='off'
-                              value={name}
-                              onChange={(e) => setName(e.target.value)}
+                              defaultValue={name}
+                              inputRef={nameRef}
+                              onBlur={() => setName(nameRef.current.value)}
                               required/>
                             </FormControl>
                             <FormControl fullWidth sx={{mt: 2}}>
                               <InputLabel htmlFor='address'>{t('restaurants.create.addressLabel')}</InputLabel>
                               <OutlinedInput id="address"
                               label={t('restaurants.create.addressLabel')} fullWidth type='address'
-                              autoComplete='off'
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
+                              defaultValue={address}
+                              inputRef={addressRef}
+                              onBlur={() => setAddress(addressRef.current.value)}
                               required/>
                             </FormControl>
                             <FormControl fullWidth sx={{mt: 2}}>
                               <InputLabel htmlFor='phone'>{t('restaurants.create.phoneLabel')}</InputLabel>
                               <OutlinedInput id="phone"
                               label={t('restaurants.create.phoneLabel')} fullWidth type='tel'
-                              value={phone}
                               autoComplete='off'
-                              onChange={(e) => setPhone(e.target.value)}
+                              defaultValue={phone}
+                              inputRef={phoneRef}
+                              onBlur={() => setPhone(phoneRef.current.value)}
                               inputProps={{ pattern: "[0-9+ ]*" }}
                               required/>
                             </FormControl>
@@ -491,9 +497,10 @@ const Restaurants_Owner = () => {
                               <OutlinedInput id="desc"
                               label={t('restaurants.create.description')} fullWidth type='text'
                               multiline rows={4}
-                              value={description}
                               autoComplete='off'
-                              onChange={(e) => setDescription(e.target.value)}
+                              defaultValue={description}
+                              inputRef={descRef}
+                              onBlur={() => setDescription(descRef.current.value)}
                               />
                             </FormControl>
                             <Button variant='contained' fullWidth sx={{mt: 2, bgcolor: "secondary.main", color: "background.default", height: "50px"}} component="label">
@@ -693,8 +700,9 @@ const Restaurants_Owner = () => {
                               <OutlinedInput id="name"
                               label={t('restaurants.create.nameLabel')} fullWidth
                               autoComplete='off'
-                              value={name}
-                              onChange={(e) => setName(e.target.value)}
+                              defaultValue={name}
+                              inputRef={nameRef}
+                              onBlur={() => setName(nameRef.current.value)}
                               required/>
                             </FormControl>
                             <FormControl fullWidth sx={{mt: 2}}>
@@ -702,17 +710,19 @@ const Restaurants_Owner = () => {
                               <OutlinedInput id="address"
                               label={t('restaurants.create.addressLabel')} fullWidth type='address'
                               autoComplete='off'
-                              value={address}
-                              onChange={(e) => setAddress(e.target.value)}
+                              defaultValue={address}
+                              inputRef={addressRef}
+                              onBlur={() => setAddress(addressRef.current.value)}
                               required/>
                             </FormControl>
                             <FormControl fullWidth sx={{mt: 2}}>
                               <InputLabel htmlFor='phone'>{t('restaurants.create.phoneLabel')}</InputLabel>
                               <OutlinedInput id="phone"
                               label={t('restaurants.create.phoneLabel')} fullWidth type='tel'
-                              value={phone}
                               autoComplete='off'
-                              onChange={(e) => setPhone(e.target.value)}
+                              defaultValue={phone}
+                              inputRef={phoneRef}
+                              onBlur={() => setPhone(phoneRef.current.value)}
                               inputProps={{ pattern: "[0-9+ ]*" }}
                               required/>
                             </FormControl>
@@ -721,9 +731,10 @@ const Restaurants_Owner = () => {
                               <OutlinedInput id="desc"
                               label={t('restaurants.create.description')} fullWidth type='text'
                               multiline rows={4}
-                              value={description}
                               autoComplete='off'
-                              onChange={(e) => setDescription(e.target.value)}/>
+                              defaultValue={description}
+                              inputRef={descRef}
+                              onBlur={() => setDescription(descRef.current.value)}/>
                             </FormControl>
                             <Button variant='contained' fullWidth sx={{mt: 2, bgcolor: "secondary.main", color: "background.default", height: "50px"}} component="label">
                               {logo ? logo.name : t('restaurants.create.logoLabel')}

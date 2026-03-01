@@ -1,7 +1,7 @@
 import { Add, Delete, DeleteOutlined, Download, Edit, ErrorOutline, EventAvailable, EventBusy, ExpandMore, MoreHoriz, QrCode, Restaurant, SentimentDissatisfiedOutlined, Update, WebAsset, WebAssetOffOutlined } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Alert, Box, Button, Card, CircularProgress, Divider, Drawer, FormControl, FormControlLabel, Grid, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Modal, Paper, Select, Skeleton, Stack, Switch, Tab, Tabs, TextField, Tooltip, Typography, useTheme } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import OwnerSidebar from './OwnerSidebar';
 import Sidebar from './Sidebar';
 import api from '../api';
@@ -22,9 +22,12 @@ const Menus = () => {
     const [openQr, setOpenQr] = useState(false);
     const [openOperationsCategory, setOpenOperationsCategory] = useState(false);
     const [menuName, setMenuName] = useState("");
+    const menuNameRef = useRef(null);
     const [menuDescription, setMenuDescription] = useState("");
+    const menuDescRef = useRef(null);
     const [menuPreviewUrl, setMenuPreviewUrl] = useState(null);
     const [categoryName, setCategoryName] = useState("");
+    const catNameRef = useRef(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const openMenu = Boolean(anchorEl);
     const [restaurants, setRestaurants] = useState([]);
@@ -62,7 +65,9 @@ const Menus = () => {
     const [exceededSize, setExceededSize] = useState(false)
     const [currency, setCurrency] = useState("USD");
     const [itemName, setItemName] = useState("");
+    const itemNameRef = useRef(null);
     const [itemDescription, setItemDescription] = useState("");
+    const itemDescRef = useRef(null);
     const [itemPrice, setItemPrice] = useState("");
     const [search, setSearch] = useState("");
     const filteredItems = items.filter(i => 
@@ -199,6 +204,8 @@ const Menus = () => {
             setMenuName("");
             setMenuDescription("");
             setMenuPreviewUrl(null);
+            setPreviewUrl(null);
+            setImage(null);
         }
     }
 
@@ -1138,8 +1145,13 @@ const Menus = () => {
                                             </Box>
                                             </Grid>
                                             <Grid size={{xs: 12, md: 8}}>
-                                                <TextField label={t("menus.createMenu.nameLabel")} fullWidth value={menuName} onChange={(e) => setMenuName(e.target.value)} required/>
-                                                <TextField label={t("menus.createMenu.descriptionLabel")} fullWidth sx={{mt: 2}} value={menuDescription} onChange={(e) => setMenuDescription(e.target.value)}
+                                                <TextField label={t("menus.createMenu.nameLabel")} fullWidth defaultValue={menuName} 
+                                                inputRef={menuNameRef}
+                                                onBlur={() => setMenuName(menuNameRef.current.value)}required/>
+                                                <TextField label={t("menus.createMenu.descriptionLabel")} fullWidth sx={{mt: 2}} 
+                                                defaultValue={menuDescription}
+                                                inputRef={menuDescRef}
+                                                onBlur={() => setMenuDescription(menuDescRef.current.value)}
                                                 multiline minRows={6}/>
                                                 <Button variant="contained" sx={{mt: 2, bgcolor: 'primary.main', '&:hover': {bgcolor: 'primary.dark'},
                                             height: "50px"}} fullWidth
@@ -1221,8 +1233,13 @@ const Menus = () => {
                                             </Box>
                                             </Grid>
                                             <Grid size={{xs: 12, md: 8}}>
-                                                <TextField label={t("menus.createMenu.nameLabel")} fullWidth value={menuName} onChange={(e) => setMenuName(e.target.value)} required/>
-                                                <TextField label={t("menus.createMenu.descriptionLabel")} fullWidth sx={{mt: 2}} value={menuDescription} onChange={(e) => setMenuDescription(e.target.value)}
+                                                <TextField label={t("menus.createMenu.nameLabel")} fullWidth defaultValue={menuName} 
+                                                inputRef={menuNameRef}
+                                                onBlur={() => setMenuName(menuNameRef.current.value)}
+                                                required/>
+                                                <TextField label={t("menus.createMenu.descriptionLabel")} fullWidth sx={{mt: 2}} defaultValue={menuDescription}
+                                                inputRef={menuDescRef}
+                                                onBlur={() => setMenuDescription(menuDescRef.current.value)}
                                                 multiline minRows={6}/>
                                                 <Button variant="contained" sx={{mt: 2, bgcolor: 'primary.main', '&:hover': {bgcolor: 'primary.dark'},
                                             height: "50px"}} fullWidth
@@ -1337,7 +1354,10 @@ const Menus = () => {
                                 </List>
                                 <Modal
                                     open={openAddCategory}
-                                    onClose={() => setOpenAddCategory(false)}
+                                    onClose={() => {
+                                        setOpenAddCategory(false);
+                                        setCategoryName("")
+                                    }}
                                >
                                     <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '400px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1
@@ -1347,7 +1367,10 @@ const Menus = () => {
                                             {t("menus.createCategory.title")}
                                         </Typography>
                                         <Divider sx={{my: 1, borderColor: "divider", borderWidth: 1}}></Divider>
-                                        <TextField label={t("menus.createCategory.nameLabel")} fullWidth sx={{mt: 2}} value={categoryName} onChange={(e) => setCategoryName(e.target.value)}/>
+                                        <TextField label={t("menus.createCategory.nameLabel")} fullWidth sx={{mt: 2}} 
+                                        defaultValue={categoryName} 
+                                        inputRef={catNameRef}
+                                        onBlur={() => setCategoryName(catNameRef.current.value)}/>
                                         <Button variant="contained" sx={{mt: 2, bgcolor: 'primary.main', '&:hover': {bgcolor: 'primary.dark'},
                                     height: "50px"}} fullWidth
                                     startIcon={loading ? <CircularProgress size={20} color="inherit"/> : <Add />}
@@ -1360,7 +1383,10 @@ const Menus = () => {
                                 </Modal>
                                 <Modal
                                     open={openOperationsCategory}
-                                    onClose={() => setOpenOperationsCategory(false)}
+                                    onClose={() => {
+                                        setOpenOperationsCategory(false);
+                                        setCategoryName("")
+                                    }}
                                >
                                     <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '400px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1
@@ -1369,7 +1395,9 @@ const Menus = () => {
                                             {t("menus.editCategory.title")}
                                         </Typography>
                                         <Divider sx={{my: 1, borderColor: "divider", borderWidth: 1}}></Divider>
-                                        <TextField label={t("menus.editCategory.nameLabel")} fullWidth sx={{mt: 2}} value={categoryName} onChange={(e) => setCategoryName(e.target.value)}/>
+                                        <TextField label={t("menus.editCategory.nameLabel")} fullWidth sx={{mt: 2}} defaultValue={categoryName} 
+                                        inputRef={catNameRef}
+                                        onBlur={() => setCategoryName(catNameRef.current.value)}/>
                                         <Button variant="contained" fullWidth
                                         startIcon={loading ? <CircularProgress size={20} color="inherit"/> : <Update/>} sx={{height: "40px", mt: 2}}
                                         onClick={handleUpdateCategory} disabled={loading}>
@@ -1565,13 +1593,17 @@ const Menus = () => {
                                         <Grid size={{xs: 12, md: 8}}>
                                                 <form action="#" onSubmit={handleCreateItem}>
                                                     <TextField fullWidth label={t("menus.createItem.nameLabel")}
-                                                    sx={{mb: 2}} autoFocus value={itemName}
-                                                    onChange={(e) => setItemName(e.target.value)}
+                                                    sx={{mb: 2}} autoFocus 
+                                                    defaultValue={itemName}
+                                                    inputRef={itemNameRef}
+                                                    onBlur={() => setItemName(itemNameRef.current.value)}
                                                     required/>
                                                     <TextField fullWidth label={t("menus.createItem.descriptionLabel")}
                                                     sx={{mb: 2}} multiline minRows={6}
-                                                    value={itemDescription}
-                                                    onChange={(e) => setItemDescription(e.target.value)} required/>
+                                                    defaultValue={itemDescription}
+                                                    inputRef={itemDescRef}
+                                                    onBlur={() => setItemDescription(itemDescRef.current.value)}
+                                                    required/>
                                                     <Grid container spacing={1}>
                                                         <Grid size={{xs: 8, sm: 9}}>
                                                             <TextField fullWidth label={t("menus.createItem.priceLabel")}
@@ -1670,12 +1702,15 @@ const Menus = () => {
                                         <Grid size={{xs: 12, md: 8}}>
                                                 <form action="#" onSubmit={handleUpdateItem}>
                                                     <TextField fullWidth label={t("menus.editItem.nameLabel")}
-                                                    sx={{mb: 2}} autoFocus value={itemName}
-                                                    onChange={(e) => setItemName(e.target.value)} required/>
+                                                    sx={{mb: 2}} autoFocus defaultValue={itemName}
+                                                    inputRef={itemNameRef}
+                                                    onBlur={() => setItemName(itemNameRef.current.value)} required/>
                                                     <TextField fullWidth label={t("menus.createItem.descriptionLabel")}
                                                     sx={{mb: 2}} multiline minRows={6}
-                                                    value={itemDescription}
-                                                    onChange={(e) => setItemDescription(e.target.value)} required/>
+                                                    defaultValue={itemDescription}
+                                                    inputRef={itemDescRef}
+                                                    onBlur={() => setItemDescription(itemDescRef.current.value)} 
+                                                    required/>
                                                     <Grid container spacing={1}>
                                                         <Grid size={{xs: 7, sm: 9}}>
                                                             <TextField fullWidth label={t("menus.createItem.priceLabel")}

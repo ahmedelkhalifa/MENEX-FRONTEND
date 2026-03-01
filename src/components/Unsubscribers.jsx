@@ -1,6 +1,6 @@
 import {AttachMoney, Category, Circle, Delete, DisabledByDefault, Edit, Event, Fastfood, Menu, MenuBook, Payments, Person, PersonOff, Restaurant, SentimentDissatisfied, SpaceDashboard, Subscriptions, SupervisorAccount, WorkspacePremium } from '@mui/icons-material'
 import { Alert, Autocomplete, Box, Button, Card, CircularProgress, Divider, Drawer, FormControl, IconButton, InputLabel, LinearProgress, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Modal, OutlinedInput, Paper, Select, Skeleton, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip, Typography, useTheme } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import api from "../api"
 import Swal from 'sweetalert2';
@@ -21,6 +21,10 @@ const RestaurantOwners = () => {
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const fname = useRef(null);
+  const lname = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [owners, setOwners] = useState([]);
   const [search, setSearch] = useState("");
@@ -441,8 +445,9 @@ const RestaurantOwners = () => {
                   <InputLabel htmlFor="firstname">First name</InputLabel>
                   <OutlinedInput id='firstname'
                   label="First name"
-                  value={firstname}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  defaultValue={firstname}
+                  inputRef={fname}
+                  onBlur={() => setFirstName(fname.current.value)}
                   required
                   autoFocus/>
                 </FormControl>
@@ -450,16 +455,18 @@ const RestaurantOwners = () => {
                   <InputLabel htmlFor="lastname">Last name</InputLabel>
                   <OutlinedInput id='lastname'
                   label="Last name"
-                  value={lastname}
-                  onChange={(e) => setLastName(e.target.value)}
+                  defaultValue={lastname}
+                  inputRef={lname}
+                  onBlur={() => setLastName(lname.current.value)}
                   required/>
                 </FormControl>
                 <FormControl sx={{mt:3}} fullWidth>
                   <InputLabel htmlFor="email">Email</InputLabel>
                   <OutlinedInput id='email'
                   label="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  defaultValue={email}
+                  inputRef={emailRef}
+                  onBlur={() => setEmail(emailRef.current.value)}
                   type='email'
                   required/>
                 </FormControl>
@@ -467,8 +474,9 @@ const RestaurantOwners = () => {
                   <InputLabel htmlFor="password">Password</InputLabel>
                   <OutlinedInput id='password'
                   label="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  defaultValue={password}
+                  inputRef={passwordRef}
+                  onBlur={() => setPassword(passwordRef.current.value)}
                   type='password'
                   required/>
                 </FormControl>
@@ -783,8 +791,9 @@ const RestaurantOwners = () => {
                     <InputLabel htmlFor="firstname">New Firstname</InputLabel>
                     <OutlinedInput id='firstname'
                     label="New Firstname"
-                    value={firstname}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    defaultValue={firstname}
+                    inputRef={fname}
+                    onBlur={() => setFirstName(fname.current.value)}
                     required
                     autoFocus/>
                   </FormControl>
@@ -792,16 +801,18 @@ const RestaurantOwners = () => {
                     <InputLabel htmlFor="lastname">New Lastname</InputLabel>
                     <OutlinedInput id='lastname'
                     label="New Lastname"
-                    value={lastname}
-                    onChange={(e) => setLastName(e.target.value)}
+                    defaultValue={lastname}
+                    inputRef={lname}
+                    onBlur={() => setLastName(lname.current.value)}
                     required/>
                   </FormControl>
                   <FormControl sx={{mt:3}} fullWidth>
                     <InputLabel htmlFor="email">New Email</InputLabel>
                     <OutlinedInput id='email'
                     label="New Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    defaultValue={email}
+                    inputRef={emailRef}
+                    onBlur={() => setEmail(emailRef.current.value)}
                     type='email'
                     required/>
                   </FormControl>

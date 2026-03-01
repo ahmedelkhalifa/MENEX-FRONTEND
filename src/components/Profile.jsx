@@ -1,5 +1,5 @@
 import { Alert, Avatar, Box, Button, Card, CircularProgress, Divider, Drawer, FormControl, Grid, IconButton, LinearProgress, MenuItem, Modal, Paper, Select, Skeleton, Stack, TextField, Tooltip, Typography, useTheme} from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import OwnerSidebar from './OwnerSidebar'
 import { AttachMoney, Cancel, Circle, CreditCard, Edit, Event, LockReset, Menu, Payment, Payments, Restore, Save, SupportAgent, VerifiedUser, WorkspacePremium } from '@mui/icons-material';
 import { useThemeMode } from '../main';
@@ -20,7 +20,9 @@ const Profile = () => {
     }
     const [open, setOpen] = useState(false);
     const [firstName, setFirstName] = useState("");
+    const fnameRef = useRef(null);
     const [lastName, setLastName] = useState("");
+    const lnameRef = useRef(null);
     const [email, setEmail] = useState("");
     const [user, setUser] = useState({
         id: 1,
@@ -392,14 +394,16 @@ const Profile = () => {
                     <Grid item size={{xs: 12, sm: 6}}>
                         <TextField label={t("profile.firstnameLabel")} fullWidth
                         inputProps={{readOnly: !editMode}} 
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        defaultValue={firstName}
+                        inputRef={fnameRef}
+                        onBlur={() => setFirstName(fnameRef.current.value)}
                         autoFocus={editMode}/>
                     </Grid>
                     <Grid item size={{xs: 12, sm: 6}}>
                         <TextField label={t("profile.lastnameLabel")} fullWidth inputProps={{readOnly: !editMode}}
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}/>
+                        defaultValue={lastName}
+                        inputRef={lnameRef}
+                        onBlur={() => setFirstName(lnameRef.current.value)}/>
                     </Grid>
                     <Grid item size={{xs: 12, sm: 6}}>
                         <TextField label={t("profile.emailLabel")} fullWidth inputProps={{readOnly: true}}

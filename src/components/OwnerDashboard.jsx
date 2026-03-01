@@ -1,5 +1,5 @@
 import { Alert, Autocomplete, Box, Button, Card, Chip, CircularProgress, Divider, Drawer, FormControl, Grid, IconButton, InputLabel, Modal, OutlinedInput, Paper, Skeleton, Stack, TextField, Typography, useTheme } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import OwnerSidebar from './OwnerSidebar';
 import { Add, ArrowForward, Class, Fastfood, Menu, MenuBook, Storefront, Visibility, Warning } from '@mui/icons-material';
 import { BarChart, LineChart, PieChart } from '@mui/x-charts';
@@ -32,6 +32,10 @@ const OwnerDashboard = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [description, setDescription] = useState("");
+  const nameRef = useRef(null);
+  const addressRef = useRef(null);
+  const phoneRef = useRef(null);
+  const descRef = useRef(null);
   const [main, setMain] = useState("#6FBF73");
   const [secondary, setSecondary] = useState("#2E3A3A");
   const [textMain, setTextMain] = useState("#2E3A3A");
@@ -652,8 +656,9 @@ const OwnerDashboard = () => {
                           <OutlinedInput id="name"
                           label={t('restaurants.create.nameLabel')} fullWidth
                           autoComplete='off'
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
+                          defaultValue={name}
+                          inputRef={nameRef}
+                          onBlur={() => setName(nameRef.current.value)}
                           required/>
                         </FormControl>
                         <FormControl fullWidth sx={{mt: 2}}>
@@ -661,17 +666,19 @@ const OwnerDashboard = () => {
                           <OutlinedInput id="address"
                           label={t('restaurants.create.addressLabel')} fullWidth type='address'
                           autoComplete='off'
-                          value={address}
-                          onChange={(e) => setAddress(e.target.value)}
+                          defaultValue={address}
+                          inputRef={addressRef}
+                          onBlur={() => setAddress(addressRef.current.value)}
                           required/>
                         </FormControl>
                         <FormControl fullWidth sx={{mt: 2}}>
                           <InputLabel htmlFor='phone'>{t('restaurants.create.phoneLabel')}</InputLabel>
                           <OutlinedInput id="phone"
                           label={t('restaurants.create.phoneLabel')} fullWidth type='tel'
-                          value={phone}
                           autoComplete='off'
-                          onChange={(e) => setPhone(e.target.value)}
+                          defaultValue={phone}
+                          inputRef={phoneRef}
+                          onBlur={() => setPhone(phoneRef.current.value)}
                           inputProps={{ pattern: "[0-9+ ]*" }}
                           required/>
                         </FormControl>
@@ -680,9 +687,10 @@ const OwnerDashboard = () => {
                           <OutlinedInput id="desc"
                           label={t('restaurants.create.description')} fullWidth type='text'
                           multiline rows={4}
-                          value={description}
                           autoComplete='off'
-                          onChange={(e) => setDescription(e.target.value)}
+                          defaultValue={description}
+                          inputRef={descRef}
+                          onBlur={() => setDescription(descRef.current.value)}
                           />
                         </FormControl>
                         <Button variant='contained' fullWidth sx={{mt: 2, bgcolor: "secondary.main", color: "background.default", height: "50px"}} component="label">

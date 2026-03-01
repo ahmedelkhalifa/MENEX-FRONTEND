@@ -1,6 +1,6 @@
 import {Category, Delete, Edit, Fastfood, Menu, MenuBook, Person, Restaurant, SentimentDissatisfied, SpaceDashboard, SupervisorAccount } from '@mui/icons-material'
 import { Autocomplete, Box, Button, Card, CircularProgress, Divider, Drawer, FormControl, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Modal, OutlinedInput, Paper, Skeleton, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, useTheme } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import api from "../api"
 import Swal from 'sweetalert2';
@@ -14,6 +14,10 @@ const Admins = () => {
     const [lastname, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const fname = useRef(null);
+    const lname = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
     const [openUpdate, setOpenUpdate] = useState(false);
     const [admins, setAdmins] = useState([]);
     const [search, setSearch] = useState("");
@@ -249,8 +253,9 @@ const Admins = () => {
                   <InputLabel htmlFor="firstname">First name</InputLabel>
                   <OutlinedInput id='firstname'
                   label="First name"
-                  value={firstname}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  defaultValue={firstname}
+                  inputRef={fname}
+                  onBlur={() => setFirstName(fname.current.value)}
                   required
                   autoFocus
                   autoComplete='off'/>
@@ -259,8 +264,9 @@ const Admins = () => {
                   <InputLabel htmlFor="lastname">Last name</InputLabel>
                   <OutlinedInput id='lastname'
                   label="Last name"
-                  value={lastname}
-                  onChange={(e) => setLastName(e.target.value)}
+                  defaultValue={lastname}
+                  inputRef={lname}
+                  onBlur={() => setLastName(lname.current.value)}
                   required
                   autoComplete='off'/>
                 </FormControl>
@@ -268,8 +274,9 @@ const Admins = () => {
                   <InputLabel htmlFor="email">Email</InputLabel>
                   <OutlinedInput id='email'
                   label="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  defaultValue={email}
+                  inputRef={emailRef}
+                  onBlur={() => setEmail(emailRef.current.value)}
                   type='email'
                   required
                   autoComplete='off'/>
@@ -278,8 +285,9 @@ const Admins = () => {
                   <InputLabel htmlFor="password">Password</InputLabel>
                   <OutlinedInput id='password'
                   label="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  defaultValue={password}
+                  inputRef={passwordRef}
+                  onBlur={() => setPassword(passwordRef.current.value)}
                   type='password'
                   required
                   autoComplete='off'/>
@@ -383,8 +391,9 @@ const Admins = () => {
                     <InputLabel htmlFor="firstname">New Firstname</InputLabel>
                     <OutlinedInput id='firstname'
                     label="New Firstname"
-                    value={firstname}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    defaultValue={firstname}
+                    inputRef={fname}
+                    onBlur={() => setFirstName(fname.current.value)}
                     required
                     autoFocus
                     autoComplete='off'/>
@@ -393,8 +402,9 @@ const Admins = () => {
                     <InputLabel htmlFor="lastname">New Lastname</InputLabel>
                     <OutlinedInput id='lastname'
                     label="New Lastname"
-                    value={lastname}
-                    onChange={(e) => setLastName(e.target.value)}
+                    defaultValue={lastname}
+                    inputRef={lname}
+                    onBlur={() => setLastName(lname.current.value)}
                     required
                     autoComplete='off'/>
                   </FormControl>
@@ -402,8 +412,9 @@ const Admins = () => {
                     <InputLabel htmlFor="email">New Email</InputLabel>
                     <OutlinedInput id='email'
                     label="New Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    defaultValue={email}
+                    inputRef={emailRef}
+                    onBlur={() => setEmail(emailRef.current.value)}
                     type='email'
                     required
                     autoComplete='off'/>
