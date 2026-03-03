@@ -73,7 +73,7 @@ const Signup = () => {
     <>
     <Box height={'100vh'} sx={{bgcolor: "background.default"}} display={'flex'}
     alignItems={'center'} justifyContent={'center'}>
-        <Card sx={{py: 7, px: 3, width: {xs: "300px", sm: "600px"}, textAlign: "center",
+        <Card sx={{py: 7, px: 3, width: {xs: "90%", sm: "600px"}, textAlign: "center",
     bgcolor: "background.card"}}>
             <Typography variant='h4' color='primary.main' fontWeight={700}>
                 {t("landing.account.signup")}
