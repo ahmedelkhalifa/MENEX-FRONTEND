@@ -848,7 +848,8 @@ const Home = () => {
                         {t("landing.footer.desc")}
                     </Typography>
                     <Box display={'flex'} alignItems={"center"} gap={0}>
-                        <IconButton>
+                        <IconButton href='https://www.facebook.com/profile.php?id=61586295087345'
+                        target={'_blank'} rel='noopener noreferrer'>
                             <Facebook/>
                         </IconButton>
                         <IconButton>
