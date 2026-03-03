@@ -538,9 +538,11 @@ const PublicMenuLayout = ({menu}) => {
     <Modal
     open={openItem}
     onClose={() => setOpenItem(false)}
-    sx={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    sx={{display: 'flex', justifyContent: 'center', alignItems: 'center',
+      zIndex: 1300
+    }}>
       <Card sx={{bgcolor: "background.default", width: {xs: "85%", md: "600px"},maxHeight: "80%",
-    overflowY: 'auto', borderRadius: "20px"}}>
+    overflowY: 'auto', borderRadius: "20px", zIndex: 1301}}>
         <Box>
           <Box component={"img"} src={`${apiUrl}/images/${selectedItem?.imageUrl}`}
           sx={{width: "100%", height: "200px", objectFit: "cover", borderRadius: "0 0 80% 0",
