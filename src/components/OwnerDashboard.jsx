@@ -9,6 +9,7 @@ import i18n from '../i18n';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import donerImage from "../assets/Beef-Doner-wrap-min-1024x683.jpg"
+import { useThemeMode } from '../main';
 
 const OwnerDashboard = () => {
   const [open, setOpen] = useState(false);
@@ -44,6 +45,7 @@ const OwnerDashboard = () => {
   const [backgroundCard, setBackgroundCard] = useState("#FFFFFF");
   const [logo, setLogo] = useState(null);
   const [exceedSize, setExceedSize] = useState(false);
+  const {mode, setMode} = useThemeMode();
     const fonts = [
       { name: 'Roboto', category: 'English & Türkçe' },
       { name: 'Open Sans', category: 'English & Türkçe' },
