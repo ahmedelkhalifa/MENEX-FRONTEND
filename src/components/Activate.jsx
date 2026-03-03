@@ -131,7 +131,7 @@ const Activate = () => {
           flexDirection: "column",
           gap: 2,
           p: 4,
-          width: {xs: "80vw", md: "600px"},
+          width: {xs: "90%", md: "600px"},
           boxShadow: (theme) =>
                         `0px 6px 20px ${theme.palette.primary.main}50`
         }}>

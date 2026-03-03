@@ -633,7 +633,7 @@ const OwnerDashboard = () => {
           <Card
           sx={{
             p: 5,
-            width: {xs: '80vw', md: '1000px', lg: "1400px"},
+            width: {xs: '90%', md: '1000px', lg: "1400px"},
             maxHeight: '88vh',
             overflowY: 'auto'
           }} onClick={(e) => e.stopPropagation()}>

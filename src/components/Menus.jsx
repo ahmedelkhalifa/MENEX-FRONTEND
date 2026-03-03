@@ -1080,7 +1080,7 @@ const Menus = () => {
                                         setExceededSize(false);
                                     }}
                                >
-                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
+                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '90%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1
                                     }}>
                                         <Typography variant="h5" component="h2" fontWeight={600}
@@ -1169,7 +1169,7 @@ const Menus = () => {
                                     open={openOperations}
                                     onClose={handleCloseOperation}
                                >
-                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
+                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '90%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1
                                     }}>
                                         <Typography variant='h5' fontWeight={600}
@@ -1359,7 +1359,7 @@ const Menus = () => {
                                         setCategoryName("")
                                     }}
                                >
-                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '400px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
+                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '90%', md: '400px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1
                                     }}>
                                         <Typography variant="h5" component="h2" fontWeight={600}
@@ -1388,7 +1388,7 @@ const Menus = () => {
                                         setCategoryName("")
                                     }}
                                >
-                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '400px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
+                                    <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '90%', md: '400px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1
                                     }}>
                                         <Typography variant='h6' fontWeight={600} textAlign={'center'}>
@@ -1537,7 +1537,7 @@ const Menus = () => {
                             <Modal 
                             open={openAddItem}
                             onClose={handleCloseAddItem}>
-                                <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
+                                <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '90%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1
                                 }}>
                                     <Typography variant='h6' fontWeight={600} textAlign={'center'}>
@@ -1645,7 +1645,7 @@ const Menus = () => {
                             <Modal 
                             open={openUpdateItem}
                             onClose={handleCloseUpdateItem}>
-                                <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '80%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
+                                <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: {xs: '90%', md: '700px'}, bgcolor: 'background.paper', boxShadow: 24, p: 4,
                                         borderRadius: 1, maxHeight: "90vh", overflowY: 'auto'
                                 }}>
                                     <Typography variant='h6' fontWeight={600} textAlign={'center'}>
