@@ -308,7 +308,8 @@ const Home = () => {
                         onClick={() => navigate("login")}>
                             {t("landing.login")}
                         </Button>
-                        <Button variant='contained' sx={{bgcolor: "success.main", color: "#fff", height: "40px", width: "150px", fontWeight: 700}}>
+                        <Button variant='contained' sx={{bgcolor: "success.main", color: "#fff", height: "40px", width: "150px", fontWeight: 700}}
+                        onClick={() => navigate("signup")}>
                             {t("landing.register")}
                         </Button>
                     </Box>
