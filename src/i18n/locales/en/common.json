@@ -371,7 +371,8 @@
             "recommendedSizeLabel": "(recommended size 300x200)",
             "button": "Add Item",
             "buttonLoading": "Adding item...",
-            "exceededSize": "The maximum size for an image is 2MB",
+            "exceededSize": "The maximum size for an image is 10MB",
+            "exceededSizeLogo": "The maximum size for a logo is 2MB",
             "availableLabel": "Available",
             "unavailableLabel": "Unavailable"
         },

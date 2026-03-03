@@ -371,7 +371,8 @@
             "recommendedSizeLabel": "الحجم الموصى به للصورة (300x200)",
             "button": "إضافة المنتج",
             "buttonLoading": "جارٍ إضافة المنتج...",
-            "exceededSize": "الحجم الأقصى للصورة 2 MB",
+            "exceededSize": "الحجم الأقصى للصورة 10 MB",
+            "exceededSizeLogo": "الحجم الأقصى للصورة 2 MB",
             "availableLabel": "متوفر",
             "unavailableLabel": "غير متوفر"
         },

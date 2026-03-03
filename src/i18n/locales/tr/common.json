@@ -371,7 +371,8 @@
             "recommendedSizeLabel": "(Önerilen Boyut 300x200)",
             "button": "Ürün Ekle",
             "buttonLoading": "Ürün ekleniyor...",
-            "exceededSize": "Bir resim için maksimum boyut 2MB'dir.",
+            "exceededSize": "Bir resim için maksimum boyut 10MB'dir.",
+            "exceededSizeLogo": "Bir logo için maksimum boyut 2MB'dir.",
             "availableLabel": "Mevcut",
             "unavailableLabel": "Mevcut Değil"
         },
