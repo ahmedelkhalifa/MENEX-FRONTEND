@@ -254,29 +254,6 @@ const PublicMenuLayout = ({menu}) => {
         <MenuItem onClick={() => handleLangChange("tr")}>Türkçe</MenuItem>
         <MenuItem onClick={() => handleLangChange("ar")}>العربية</MenuItem>
     </Menu>
-    <Box position={"absolute"} sx={{
-      top: {xs: "5%", md: "10%"},
-      left: {xs: "5%", md: "unset"},
-      right: {xs: "unset", md: "5%"}
-    }} zIndex={1000} display={'flex'} alignItems={'center'}>
-      <Typography variant='body1' fontWeight={700} color='background.default'>
-        {t("public.menuView")}:
-      </Typography>
-      <Box display={"flex"} alignItems={"center"}>
-        <Tooltip title={t("public.cardView")}>
-          <IconButton onClick={() => {
-            setListView(false);
-          }}>
-            <ViewAgenda sx={{color: "background.default", fontSize: 20}}></ViewAgenda>
-          </IconButton>
-        </Tooltip>
-        <Tooltip title={t("public.listView")}>
-          <IconButton onClick={() => setListView(true)}>
-            <ViewList sx={{color: "background.default"}}/>
-          </IconButton>
-        </Tooltip>
-      </Box>
-    </Box>
     <Box width={"100%"} height={"350px"} position={'relative'} zIndex={1}>
         <Box component={"img"} src={`${apiUrl}/images/${menu?.imageUrl}`}
         width={"100%"} height={"100%"} sx={{objectFit: "cover", borderRadius: "0 0 40% 40%"}}/>
@@ -301,7 +278,26 @@ const PublicMenuLayout = ({menu}) => {
     </Box>
     <MenuBackground variant="layered-waves"/>
     <Container maxWidth="lg" sx={{zIndex: 20, position: "relative"}}>
-      <Typography variant='h5' fontWeight={600} color='text.primary' mt={5} mb={1} sx={{fontFamily}}>
+      <Box zIndex={1000} display={'flex'} alignItems={'center'} mt={3}>
+        <Typography variant='body1' fontWeight={700} color='text.primary'>
+          {t("public.menuView")}:
+        </Typography>
+        <Box display={"flex"} alignItems={"center"}>
+          <Tooltip title={t("public.cardView")}>
+            <IconButton onClick={() => {
+              setListView(false);
+            }}>
+              <ViewAgenda sx={{color: "text.primary", fontSize: 20}}></ViewAgenda>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={t("public.listView")}>
+            <IconButton onClick={() => setListView(true)}>
+              <ViewList sx={{color: "text.primary"}}/>
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Box>
+      <Typography variant='h5' fontWeight={600} color='text.primary' mt={2} mb={1} sx={{fontFamily}}>
         {t("public.categories")}
       </Typography>
       <Tabs variant='scrollable' scrollButtons="auto" value={tabValue}
@@ -449,14 +445,14 @@ const PublicMenuLayout = ({menu}) => {
                               }
                             }}
                           >
-                            <Box display="flex" alignItems="stretch" p={1.5} gap={2}>
+                            <Box display="flex" alignItems="stretch" p={2} gap={2}>
                               {/* Image */}
                               <Box
                                 component="img"
                                 src={`${apiUrl}/images/${item.imageUrl}`}
                                 sx={{
-                                  width: { xs: "90px", md: "130px" },
-                                  height: { xs: "90px", md: "130px" },
+                                  width: { xs: "110px", md: "160px" },
+                                  height: { xs: "110px", md: "160px" },
                                   borderRadius: 2,
                                   objectFit: "cover",
                                   flexShrink: 0,
@@ -469,9 +465,8 @@ const PublicMenuLayout = ({menu}) => {
                                 {/* Name + Price */}
                                 <Box display="flex" justifyContent="space-between" alignItems="flex-start" gap={1}>
                                   <Typography
-                                    variant="h6"
                                     fontWeight={600}
-                                    fontSize={{ xs: 14, md: 18 }}
+                                    fontSize={{ xs: 16, md: 20 }}
                                     sx={{
                                       fontFamily,
                                       overflow: "hidden",
@@ -485,7 +480,7 @@ const PublicMenuLayout = ({menu}) => {
                                   <Typography
                                     fontWeight={700}
                                     color="primary.main"
-                                    fontSize={{ xs: 13, md: 16 }}
+                                    fontSize={{ xs: 15, md: 18 }}
                                     sx={{ fontFamily, whiteSpace: "nowrap" }}
                                   >
                                     {item.price}
@@ -499,7 +494,7 @@ const PublicMenuLayout = ({menu}) => {
                                 <Typography
                                   variant="body2"
                                   color="text.secondary"
-                                  fontSize={{ xs: 12, md: 14 }}
+                                  fontSize={{ xs: 13, md: 15 }}
                                   sx={{
                                     fontFamily,
                                     display: "-webkit-box",
@@ -507,17 +502,17 @@ const PublicMenuLayout = ({menu}) => {
                                     WebkitLineClamp: 2,
                                     overflow: "hidden",
                                     textOverflow: "ellipsis",
-                                    mt: 0.5,
+                                    mt: 1,
                                   }}
                                 >
                                   {item.description}
                                 </Typography>
 
                                 {/* Available + Button */}
-                                <Box display="flex" alignItems="center" justifyContent="space-between" mt={1}>
+                                <Box display="flex" alignItems="center" justifyContent="space-between" mt={1.5}>
                                   <Typography
                                     fontWeight={600}
-                                    fontSize={{ xs: 11, md: 14 }}
+                                    fontSize={{ xs: 12, md: 15 }}
                                     sx={{
                                       fontFamily,
                                       color: item.available ? "primary.main" : "error.main",
@@ -528,13 +523,13 @@ const PublicMenuLayout = ({menu}) => {
                                   <Button
                                     endIcon={<ArrowForward />}
                                     variant="contained"
-                                    size="small"
                                     sx={{
                                       fontFamily,
                                       color: "background.default",
                                       bgcolor: "primary.main",
-                                      fontSize: { xs: 11, md: 13 },
-                                      px: { xs: 1, md: 2 },
+                                      fontSize: { xs: 12, md: 14 },
+                                      px: { xs: 1.5, md: 2.5 },
+                                      py: { xs: 0.8, md: 1 },
                                     }}
                                     onClick={() => {
                                       setOpenItem(true);
@@ -566,7 +561,7 @@ const PublicMenuLayout = ({menu}) => {
             ))
         ) : (
             <>
-            <Box display={'flex'} gap={2} alignItems={'center'}>
+            <Box display={'flex'} gap={2} alignItems={'center'} mb={3}>
                 <Typography variant='h5' fontWeight={600} color='text.primary' sx={{fontFamily}}>
                     {menu.categories[tabValue - 1]?.name}
                 </Typography>
@@ -699,14 +694,14 @@ const PublicMenuLayout = ({menu}) => {
                           }
                         }}
                       >
-                        <Box display="flex" alignItems="stretch" p={1.5} gap={2}>
+                        <Box display="flex" alignItems="stretch" p={2} gap={2}>
                           {/* Image */}
                           <Box
                             component="img"
                             src={`${apiUrl}/images/${item.imageUrl}`}
                             sx={{
-                              width: { xs: "90px", md: "130px" },
-                              height: { xs: "90px", md: "130px" },
+                              width: { xs: "110px", md: "160px" },
+                              height: { xs: "110px", md: "160px" },
                               borderRadius: 2,
                               objectFit: "cover",
                               flexShrink: 0,
@@ -719,9 +714,8 @@ const PublicMenuLayout = ({menu}) => {
                             {/* Name + Price */}
                             <Box display="flex" justifyContent="space-between" alignItems="flex-start" gap={1}>
                               <Typography
-                                variant="h6"
                                 fontWeight={600}
-                                fontSize={{ xs: 14, md: 18 }}
+                                fontSize={{ xs: 16, md: 20 }}
                                 sx={{
                                   fontFamily,
                                   overflow: "hidden",
@@ -735,7 +729,7 @@ const PublicMenuLayout = ({menu}) => {
                               <Typography
                                 fontWeight={700}
                                 color="primary.main"
-                                fontSize={{ xs: 13, md: 16 }}
+                                fontSize={{ xs: 15, md: 18 }}
                                 sx={{ fontFamily, whiteSpace: "nowrap" }}
                               >
                                 {item.price}
@@ -749,7 +743,7 @@ const PublicMenuLayout = ({menu}) => {
                             <Typography
                               variant="body2"
                               color="text.secondary"
-                              fontSize={{ xs: 12, md: 14 }}
+                              fontSize={{ xs: 13, md: 15 }}
                               sx={{
                                 fontFamily,
                                 display: "-webkit-box",
@@ -757,17 +751,17 @@ const PublicMenuLayout = ({menu}) => {
                                 WebkitLineClamp: 2,
                                 overflow: "hidden",
                                 textOverflow: "ellipsis",
-                                mt: 0.5,
+                                mt: 1,
                               }}
                             >
                               {item.description}
                             </Typography>
 
                             {/* Available + Button */}
-                            <Box display="flex" alignItems="center" justifyContent="space-between" mt={1}>
+                            <Box display="flex" alignItems="center" justifyContent="space-between" mt={1.5}>
                               <Typography
                                 fontWeight={600}
-                                fontSize={{ xs: 11, md: 14 }}
+                                fontSize={{ xs: 12, md: 15 }}
                                 sx={{
                                   fontFamily,
                                   color: item.available ? "primary.main" : "error.main",
@@ -778,13 +772,13 @@ const PublicMenuLayout = ({menu}) => {
                               <Button
                                 endIcon={<ArrowForward />}
                                 variant="contained"
-                                size="small"
                                 sx={{
                                   fontFamily,
                                   color: "background.default",
                                   bgcolor: "primary.main",
-                                  fontSize: { xs: 11, md: 13 },
-                                  px: { xs: 1, md: 2 },
+                                  fontSize: { xs: 12, md: 14 },
+                                  px: { xs: 1.5, md: 2.5 },
+                                  py: { xs: 0.8, md: 1 },
                                 }}
                                 onClick={() => {
                                   setOpenItem(true);
