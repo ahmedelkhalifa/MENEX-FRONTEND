@@ -633,6 +633,9 @@
         "inactive": "Pasif",
         "available": "Mevcut",
         "unavailable": "Mevcut Değil",
-        "viewItem": "Ürünü görüntüle"
+        "viewItem": "Ürünü görüntüle",
+        "listView": "Liste Görünümü",
+        "cardView": "Kart Görünümü",
+        "menuView": "Menü Görünümü"
     }
 }

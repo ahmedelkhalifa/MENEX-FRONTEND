@@ -638,6 +638,9 @@
         "inactive": "Inactive",
         "available": "Available",
         "unavailable": "Unavailable",
-        "viewItem": "View Item"
+        "viewItem": "View Item",
+        "listView": "List View",
+        "cardView": "Card View",
+        "menuView": "Menu View"
     }
 }

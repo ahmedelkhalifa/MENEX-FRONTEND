@@ -633,6 +633,9 @@
         "inactive":"غير نشط",
         "available": "متوفر",
         "unavailable": "غير متوفر",
-        "viewItem": "رؤية المنتج"
+        "viewItem": "رؤية المنتج",
+        "listView": "عرض في قائمة",
+        "cardView": "عرض في بطاقة",
+        "menuView": "شكل العرض"
     }
 }

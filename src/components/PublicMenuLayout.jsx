@@ -1,8 +1,8 @@
-import { Badge, Box, Button, Card, Chip, Container, Grid, IconButton, Menu, MenuItem, Modal, Paper, Tab, Tabs, Typography, useTheme } from '@mui/material'
+import { Badge, Box, Button, Card, Chip, Container, Grid, IconButton, Menu, MenuItem, Modal, Paper, Tab, Tabs, Tooltip, Typography, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import api from '../api';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowForward, Language, Numbers } from '@mui/icons-material';
+import { ArrowForward, Language, Numbers, ViewAgenda, ViewList } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -199,6 +199,7 @@ const PublicMenuLayout = ({menu}) => {
     const theme = useTheme();
     const [openItem, setOpenItem] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null)
+    const [listView, setListView] = useState(false);
     
     const handleOpenLang = (event) => {
         setAnchorEl(event.currentTarget);
@@ -253,6 +254,29 @@ const PublicMenuLayout = ({menu}) => {
         <MenuItem onClick={() => handleLangChange("tr")}>Türkçe</MenuItem>
         <MenuItem onClick={() => handleLangChange("ar")}>العربية</MenuItem>
     </Menu>
+    <Box position={"absolute"} sx={{
+      top: {xs: "5%", md: "10%"},
+      left: {xs: "5%", md: "unset"},
+      right: {xs: "unset", md: "5%"}
+    }} zIndex={1000} display={'flex'} alignItems={'center'}>
+      <Typography variant='body1' fontWeight={700} color='background.default'>
+        {t("public.menuView")}:
+      </Typography>
+      <Box display={"flex"} alignItems={"center"}>
+        <Tooltip title={t("public.cardView")}>
+          <IconButton onClick={() => {
+            setListView(false);
+          }}>
+            <ViewAgenda sx={{color: "background.default", fontSize: 20}}></ViewAgenda>
+          </IconButton>
+        </Tooltip>
+        <Tooltip title={t("public.listView")}>
+          <IconButton onClick={() => setListView(true)}>
+            <ViewList sx={{color: "background.default"}}/>
+          </IconButton>
+        </Tooltip>
+      </Box>
+    </Box>
     <Box width={"100%"} height={"350px"} position={'relative'} zIndex={1}>
         <Box component={"img"} src={`${apiUrl}/images/${menu?.imageUrl}`}
         width={"100%"} height={"100%"} sx={{objectFit: "cover", borderRadius: "0 0 40% 40%"}}/>
@@ -297,7 +321,8 @@ const PublicMenuLayout = ({menu}) => {
                     </Typography>
                     <Chip label={`${category.menuItemsCount} ${t("public.items")}`} sx={{fontFamily}} />
                 </Box>
-                <Grid container spacing={2} mb={3}>
+                {!listView ? (
+                  <Grid container spacing={2} mb={3}>
                     {menu.menuItems
                     .filter(item => item.categoryId === category.id)
                     .map(item => (
@@ -404,6 +429,129 @@ const PublicMenuLayout = ({menu}) => {
                         </Grid>
                     ))}
                 </Grid>
+                ) : (
+                  <Grid container spacing={2} mb={3}>
+                    {menu.menuItems
+                      .filter(item => item.categoryId === category.id)
+                      .map(item => (
+                        <Grid size={{ xs: 12, sm: 6 }} key={item.id}>
+                          <Paper
+                            elevation={1}
+                            sx={{
+                              width: "100%",
+                              position: "relative",
+                              overflow: "hidden",
+                              cursor: "pointer",
+                              transition: "all 0.2s ease",
+                              "&:hover": {
+                                transform: "translateY(-5px)",
+                                boxShadow: (theme) => `0 6px 20px ${theme.palette.primary.main}55`
+                              }
+                            }}
+                          >
+                            <Box display="flex" alignItems="stretch" p={1.5} gap={2}>
+                              {/* Image */}
+                              <Box
+                                component="img"
+                                src={`${apiUrl}/images/${item.imageUrl}`}
+                                sx={{
+                                  width: { xs: "90px", md: "130px" },
+                                  height: { xs: "90px", md: "130px" },
+                                  borderRadius: 2,
+                                  objectFit: "cover",
+                                  flexShrink: 0,
+                                }}
+                              />
+
+                              {/* Content */}
+                              <Box display="flex" flexDirection="column" justifyContent="space-between" flex={1} minWidth={0}>
+                                
+                                {/* Name + Price */}
+                                <Box display="flex" justifyContent="space-between" alignItems="flex-start" gap={1}>
+                                  <Typography
+                                    variant="h6"
+                                    fontWeight={600}
+                                    fontSize={{ xs: 14, md: 18 }}
+                                    sx={{
+                                      fontFamily,
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      whiteSpace: "nowrap",
+                                      flex: 1,
+                                    }}
+                                  >
+                                    {item.name}
+                                  </Typography>
+                                  <Typography
+                                    fontWeight={700}
+                                    color="primary.main"
+                                    fontSize={{ xs: 13, md: 16 }}
+                                    sx={{ fontFamily, whiteSpace: "nowrap" }}
+                                  >
+                                    {item.price}
+                                    {item.currency === "USD" && "$"}
+                                    {item.currency === "TL" && "₺"}
+                                    {item.currency === "SDG" && "ج.س"}
+                                  </Typography>
+                                </Box>
+
+                                {/* Description */}
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  fontSize={{ xs: 12, md: 14 }}
+                                  sx={{
+                                    fontFamily,
+                                    display: "-webkit-box",
+                                    WebkitBoxOrient: "vertical",
+                                    WebkitLineClamp: 2,
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    mt: 0.5,
+                                  }}
+                                >
+                                  {item.description}
+                                </Typography>
+
+                                {/* Available + Button */}
+                                <Box display="flex" alignItems="center" justifyContent="space-between" mt={1}>
+                                  <Typography
+                                    fontWeight={600}
+                                    fontSize={{ xs: 11, md: 14 }}
+                                    sx={{
+                                      fontFamily,
+                                      color: item.available ? "primary.main" : "error.main",
+                                    }}
+                                  >
+                                    {item.available ? t("public.available") : t("public.unavailable")}
+                                  </Typography>
+                                  <Button
+                                    endIcon={<ArrowForward />}
+                                    variant="contained"
+                                    size="small"
+                                    sx={{
+                                      fontFamily,
+                                      color: "background.default",
+                                      bgcolor: "primary.main",
+                                      fontSize: { xs: 11, md: 13 },
+                                      px: { xs: 1, md: 2 },
+                                    }}
+                                    onClick={() => {
+                                      setOpenItem(true);
+                                      setSelectedItem(item);
+                                    }}
+                                  >
+                                    {t("public.viewItem")}
+                                  </Button>
+                                </Box>
+                              </Box>
+                            </Box>
+                          </Paper>
+                        </Grid>
+                      ))}
+                  </Grid>
+                )
+                }
                 {(() => {
                     // Don't show a divider after the very last category
                     if (index < menu.categories.length - 1) {
@@ -424,7 +572,8 @@ const PublicMenuLayout = ({menu}) => {
                 </Typography>
                 <Chip label={`${menu.categories[tabValue - 1]?.menuItemsCount} ${t("public.items")}`} sx={{fontFamily}}/>
             </Box>
-            <Grid container spacing={2} mt={3}>
+            {!listView ? (
+              <Grid container spacing={2} mt={3}>
                 {menu.menuItems
                     .filter(item => item.categoryId === menu.categories[tabValue - 1]?.id)
                     .map(item => (
@@ -530,6 +679,128 @@ const PublicMenuLayout = ({menu}) => {
                         </Grid>
                     ))}
             </Grid>
+            ) : (
+              <Grid container spacing={2} mb={3}>
+                {menu.menuItems
+                  .filter(item => item.categoryId === menu.categories[tabValue - 1]?.id)
+                  .map(item => (
+                    <Grid size={{ xs: 12, sm: 6 }} key={item.id}>
+                      <Paper
+                        elevation={1}
+                        sx={{
+                          width: "100%",
+                          position: "relative",
+                          overflow: "hidden",
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                          "&:hover": {
+                            transform: "translateY(-5px)",
+                            boxShadow: (theme) => `0 6px 20px ${theme.palette.primary.main}55`
+                          }
+                        }}
+                      >
+                        <Box display="flex" alignItems="stretch" p={1.5} gap={2}>
+                          {/* Image */}
+                          <Box
+                            component="img"
+                            src={`${apiUrl}/images/${item.imageUrl}`}
+                            sx={{
+                              width: { xs: "90px", md: "130px" },
+                              height: { xs: "90px", md: "130px" },
+                              borderRadius: 2,
+                              objectFit: "cover",
+                              flexShrink: 0,
+                            }}
+                          />
+
+                          {/* Content */}
+                          <Box display="flex" flexDirection="column" justifyContent="space-between" flex={1} minWidth={0}>
+                            
+                            {/* Name + Price */}
+                            <Box display="flex" justifyContent="space-between" alignItems="flex-start" gap={1}>
+                              <Typography
+                                variant="h6"
+                                fontWeight={600}
+                                fontSize={{ xs: 14, md: 18 }}
+                                sx={{
+                                  fontFamily,
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
+                                  flex: 1,
+                                }}
+                              >
+                                {item.name}
+                              </Typography>
+                              <Typography
+                                fontWeight={700}
+                                color="primary.main"
+                                fontSize={{ xs: 13, md: 16 }}
+                                sx={{ fontFamily, whiteSpace: "nowrap" }}
+                              >
+                                {item.price}
+                                {item.currency === "USD" && "$"}
+                                {item.currency === "TL" && "₺"}
+                                {item.currency === "SDG" && "ج.س"}
+                              </Typography>
+                            </Box>
+
+                            {/* Description */}
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              fontSize={{ xs: 12, md: 14 }}
+                              sx={{
+                                fontFamily,
+                                display: "-webkit-box",
+                                WebkitBoxOrient: "vertical",
+                                WebkitLineClamp: 2,
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                mt: 0.5,
+                              }}
+                            >
+                              {item.description}
+                            </Typography>
+
+                            {/* Available + Button */}
+                            <Box display="flex" alignItems="center" justifyContent="space-between" mt={1}>
+                              <Typography
+                                fontWeight={600}
+                                fontSize={{ xs: 11, md: 14 }}
+                                sx={{
+                                  fontFamily,
+                                  color: item.available ? "primary.main" : "error.main",
+                                }}
+                              >
+                                {item.available ? t("public.available") : t("public.unavailable")}
+                              </Typography>
+                              <Button
+                                endIcon={<ArrowForward />}
+                                variant="contained"
+                                size="small"
+                                sx={{
+                                  fontFamily,
+                                  color: "background.default",
+                                  bgcolor: "primary.main",
+                                  fontSize: { xs: 11, md: 13 },
+                                  px: { xs: 1, md: 2 },
+                                }}
+                                onClick={() => {
+                                  setOpenItem(true);
+                                  setSelectedItem(item);
+                                }}
+                              >
+                                {t("public.viewItem")}
+                              </Button>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Paper>
+                    </Grid>
+                  ))}
+              </Grid>
+            )}
             </>
             )}
 
