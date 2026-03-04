@@ -273,7 +273,7 @@ const PublicMenuLayout = ({menu}) => {
             alignItems: "center",
             justifyContent: "center"
             }}>
-            <Typography variant='h1' fontSize={{xs: "50px", md: "96px"}} fontWeight={600} sx={{color: "secondary.main", fontFamily}}>
+            <Typography variant='h1' fontSize={{xs: "50px", md: "96px"}} fontWeight={600} sx={{color: "secondary.main", fontFamily, width: "90%"}}>
                 {menu.name}
             </Typography>
             <Typography variant='body1' fontSize={{xs: 12, md: 16}} sx={{color: "background.default", fontFamily, width: "80%"}} mt={1}>
