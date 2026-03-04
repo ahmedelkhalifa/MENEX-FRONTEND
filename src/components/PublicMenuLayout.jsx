@@ -199,7 +199,8 @@ const PublicMenuLayout = ({menu}) => {
     const theme = useTheme();
     const [openItem, setOpenItem] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null)
-    const [listView, setListView] = useState(false);
+    const [listView, setListView] = useState(true);
+    const [cardView, setCardView] = useState(false);
     
     const handleOpenLang = (event) => {
         setAnchorEl(event.currentTarget);
@@ -258,20 +259,24 @@ const PublicMenuLayout = ({menu}) => {
         <Box component={"img"} src={`${apiUrl}/images/${menu?.imageUrl}`}
         width={"100%"} height={"100%"} sx={{objectFit: "cover", borderRadius: "0 0 40% 40%"}}/>
         <Box position={"absolute"} top={0} left={0} width={"100%"} height={"100%"}
-        sx={{bgcolor: "primary.main", opacity: "0.6", borderRadius: "0 0 40% 40%"}}/>
+        sx={{bgcolor: "primary.main", opacity: "0.86", borderRadius: "0 0 40% 40%"}}/>
         <Box sx={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "80%",
+            width: "100%",
             zIndex: 1,
-            textAlign: "center"
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center"
             }}>
-            <Typography variant='h1' fontSize={{xs: "32px", md: "96px"}} fontWeight={600} sx={{color: "background.default", fontFamily}}>
+            <Typography variant='h1' fontSize={{xs: "50px", md: "96px"}} fontWeight={600} sx={{color: "secondary.main", fontFamily}}>
                 {menu.name}
             </Typography>
-            <Typography variant='body1' fontSize={{xs: 12, md: 16}} sx={{color: "background.default", fontFamily}} mt={1}>
+            <Typography variant='body1' fontSize={{xs: 12, md: 16}} sx={{color: "background.default", fontFamily, width: "80%"}} mt={1}>
                 {menu.description}
             </Typography>
         </Box>
@@ -282,17 +287,40 @@ const PublicMenuLayout = ({menu}) => {
         <Typography variant='body1' fontWeight={700} color='text.primary'>
           {t("public.menuView")}:
         </Typography>
-        <Box display={"flex"} alignItems={"center"}>
-          <Tooltip title={t("public.cardView")}>
-            <IconButton onClick={() => {
-              setListView(false);
-            }}>
-              <ViewAgenda sx={{color: "text.primary", fontSize: 20}}></ViewAgenda>
+        <Box display={"flex"} alignItems={"center"} ml={1}>
+          <Tooltip title={t("public.listView")}>
+            <IconButton
+              onClick={() => {
+                setListView(true);
+                setCardView(false);
+              }}
+              sx={{
+                bgcolor: listView ? "secondary.main" : "transparent",
+                "&:hover": {
+                  bgcolor: listView ? "secondary.main" : "action.hover",
+                },
+                boxShadow: listView ? (theme) => `0 6px 20px ${theme.palette.primary.main}55` : "none",
+              }}
+            >
+              <ViewList sx={{ color: listView ? "background.default" : "text.primary" }} />
             </IconButton>
           </Tooltip>
-          <Tooltip title={t("public.listView")}>
-            <IconButton onClick={() => setListView(true)}>
-              <ViewList sx={{color: "text.primary"}}/>
+
+          <Tooltip title={t("public.cardView")}>
+            <IconButton
+              onClick={() => {
+                setListView(false);
+                setCardView(true);
+              }}
+              sx={{
+                bgcolor: cardView ? "secondary.main" : "transparent",
+                "&:hover": {
+                  bgcolor: cardView ? "secondary.main" : "action.hover",
+                },
+                boxShadow: cardView ? (theme) => `0 6px 20px ${theme.palette.primary.main}55` : "none",
+              }}
+            >
+              <ViewAgenda sx={{ color: cardView ? "background.default" : "text.primary", fontSize: 20 }} />
             </IconButton>
           </Tooltip>
         </Box>
@@ -312,10 +340,11 @@ const PublicMenuLayout = ({menu}) => {
             menu.categories.map((category, index) => (
                 <React.Fragment key={category.id}>
                 <Box display="flex" gap={2} alignItems="center" mb={3}>
-                    <Typography variant="h5" fontWeight={600} sx={{fontFamily}}>
+                    <Typography variant="h5" fontWeight={600} sx={{fontFamily}}
+                    color='secondary.main'>
                         {category.name}
                     </Typography>
-                    <Chip label={`${category.menuItemsCount} ${t("public.items")}`} sx={{fontFamily}} />
+                    <Chip label={`${category.menuItemsCount} ${t("public.items")}`} sx={{fontFamily, bgcolor: "secondary.main", color: "background.default"}} />
                 </Box>
                 {!listView ? (
                   <Grid container spacing={2} mb={3}>

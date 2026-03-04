@@ -131,7 +131,7 @@ const PublicRestaurantLayout = ({restaurant}) => {
                                     <Typography variant='h5' fontWeight={600} textAlign={'center'} sx={{fontFamily}}>
                                         {menu.name}
                                     </Typography>
-                                    <Chip label={`${menu.itemsCount} ${t("public.items")}`} sx={{fontFamily}}/>
+                                    <Chip label={`${menu.itemsCount} ${t("public.items")}`} sx={{fontFamily, bgcolor: "secondary.main", color: "background.default"}}/>
                                 </Box>
                                 <Typography variant='body1' color={"text.secondary"} 
                                 textAlign={{xs: 'center', md: 'left'}} mt={2}
