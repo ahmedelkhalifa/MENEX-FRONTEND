@@ -91,7 +91,7 @@ const PublicRestaurantLayout = ({restaurant}) => {
                 </Typography>
             </Box>
             <Box display={'flex'} alignItems={'center'} mt={2} mb={4} flexDirection={{xs: 'column', sm: "row"}} gap={2} p={4}>
-                <Box px={2} py={1} sx={{bgcolor: "background.default"}} borderRadius={1} border={"1px solid #999"}
+                <Box px={2} py={1} sx={{bgcolor: "background.default"}} borderRadius={1} border={"1px solid secondary.main"}
                 display={'flex'} alignItems={'center'} gap={1}>
                     <LocationOn sx={{color: "text.primary"}}></LocationOn>
                     <Typography display={"inline-block"} sx={{fontFamily,
@@ -100,7 +100,7 @@ const PublicRestaurantLayout = ({restaurant}) => {
                         {restaurant?.address}
                     </Typography>
                 </Box>
-                <Box px={2} py={1} sx={{bgcolor: "background.default"}} borderRadius={1} border={"1px solid #999"} display={'flex'} alignItems={'center'} gap={1}>
+                <Box px={2} py={1} sx={{bgcolor: "background.default"}} borderRadius={1} border={"1px solid secondary.main"} display={'flex'} alignItems={'center'} gap={1}>
                     <Phone sx={{color: "text.primary"}}></Phone>
                     <Typography display={"inline-block"} sx={{fontFamily,
                         color: "text.primary"
