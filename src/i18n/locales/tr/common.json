@@ -636,6 +636,7 @@
         "viewItem": "Ürünü görüntüle",
         "listView": "Liste Görünümü",
         "cardView": "Kart Görünümü",
-        "menuView": "Menü Görünümü"
+        "menuView": "Görünüm",
+        "btn": "Konum & Telephone"
     }
 }

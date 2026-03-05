@@ -76,7 +76,10 @@ const PublicRestaurantLayout = ({restaurant}) => {
                 <Box component={"img"}
                 src={`${apiUrl}/images/${restaurant?.logoUrl}`}
                 width={"100px"} height={"100px"}
-                sx={{objectFit: "cover"}}/>
+                sx={{objectFit: "cover",
+                    borderRadius: "50%",
+                    boxShadow: (theme) => `0 6px 20px ${theme.palette.primary.main}55`
+                }}/>
             </Box>
             <Box textAlign={'center'} mt={2} width={"80%"}>
                 <Typography variant="h3" fontWeight={700} sx={{color: "text.primary", fontFamily}}
@@ -90,14 +93,18 @@ const PublicRestaurantLayout = ({restaurant}) => {
             <Box display={'flex'} alignItems={'center'} mt={2} mb={4} flexDirection={{xs: 'column', sm: "row"}} gap={2} p={4}>
                 <Box px={2} py={1} sx={{bgcolor: "#fcfcfc"}} borderRadius={1} border={"1px solid #999"}
                 display={'flex'} alignItems={'center'} gap={1}>
-                    <LocationOn></LocationOn>
-                    <Typography display={"inline-block"} sx={{fontFamily}}>
+                    <LocationOn sx={{color: "text.primary"}}></LocationOn>
+                    <Typography display={"inline-block"} sx={{fontFamily,
+                        color: "text.primary"
+                    }}>
                         {restaurant?.address}
                     </Typography>
                 </Box>
                 <Box px={2} py={1} sx={{bgcolor: "#fcfcfc"}} borderRadius={1} border={"1px solid #999"} display={'flex'} alignItems={'center'} gap={1}>
-                    <Phone></Phone>
-                    <Typography display={"inline-block"} sx={{fontFamily}}>
+                    <Phone sx={{color: "text.primary"}}></Phone>
+                    <Typography display={"inline-block"} sx={{fontFamily,
+                        color: "text.primary"
+                    }}>
                         {restaurant?.phone}
                     </Typography>
                 </Box>
@@ -164,9 +171,10 @@ const PublicRestaurantLayout = ({restaurant}) => {
     flexDirection={'column'} p={4}>
         <Box component={'img'}
         src={menexLogo}
-        width={"200px"} height={"100px"}
+        width={"100px"}
         sx={{objectFit: "contain"}}/>
-        <Typography sx={{fontFamily}}>
+        <Typography variant='body1'
+         sx={{fontFamily, color: "text.secondary", fontWeight: 600}}>
                 {new Date().getFullYear()} | Powered by Menex.
         </Typography>
     </Box>

@@ -201,6 +201,7 @@ const PublicMenuLayout = ({menu}) => {
     const [selectedItem, setSelectedItem] = useState(null)
     const [listView, setListView] = useState(true);
     const [cardView, setCardView] = useState(false);
+    const {restaurantSlug, menuId} = useParams();
     
     const handleOpenLang = (event) => {
         setAnchorEl(event.currentTarget);
@@ -229,7 +230,7 @@ const PublicMenuLayout = ({menu}) => {
         <IconButton>
             <Language sx={{color: "background.default"}}/>
         </IconButton>
-        <Typography variant='body1' fontWeight={700} color='background.default' sx={{fontFamily}}>
+        <Typography variant='body1' fontWeight={600} color='background.default' sx={{fontFamily}}>
             {i18n.language?.toUpperCase()}
         </Typography>
     </Box>
@@ -276,58 +277,69 @@ const PublicMenuLayout = ({menu}) => {
             <Typography variant='h1' fontSize={{xs: "50px", md: "96px"}} fontWeight={600} sx={{color: "secondary.main", fontFamily, width: "90%"}}>
                 {menu.name}
             </Typography>
-            <Typography variant='body1' fontSize={{xs: 12, md: 16}} sx={{color: "background.default", fontFamily, width: "80%"}} mt={1}>
+            <Typography variant='body1' fontSize={{xs: 14, md: 16}} sx={{color: "background.default", fontFamily, width: "80%"}} mt={1}>
                 {menu.description}
             </Typography>
+            <Button variant='contained' sx={{width: 'fit-content', px: 2, py: 1,
+              bgcolor: "background.default", color: "text.primary", mt: 2,
+              fontWeight: 700, fontFamily
+            }} onClick={() => navigate("/" + restaurantSlug)}>
+              {t("public.btn")}
+            </Button>
         </Box>
     </Box>
     <MenuBackground variant="layered-waves"/>
     <Container maxWidth="lg" sx={{zIndex: 20, position: "relative"}}>
-      <Box zIndex={1000} display={'flex'} alignItems={'center'} mt={3}>
-        <Typography variant='body1' fontWeight={700} color='text.primary'>
-          {t("public.menuView")}:
+      <Box zIndex={1000} display={'flex'} alignItems={'center'} justifyContent={"space-between"}
+      mt={4} mb={2}>
+        <Typography variant='h5' fontWeight={600} color='text.primary' sx={{fontFamily}}
+        flex={3}>
+          {t("public.categories")}
         </Typography>
-        <Box display={"flex"} alignItems={"center"} ml={1}>
-          <Tooltip title={t("public.listView")}>
-            <IconButton
-              onClick={() => {
-                setListView(true);
-                setCardView(false);
-              }}
-              sx={{
-                bgcolor: listView ? "secondary.main" : "transparent",
-                "&:hover": {
-                  bgcolor: listView ? "secondary.main" : "action.hover",
-                },
-                boxShadow: listView ? (theme) => `0 6px 20px ${theme.palette.primary.main}55` : "none",
-              }}
-            >
-              <ViewList sx={{ color: listView ? "background.default" : "text.primary" }} />
-            </IconButton>
-          </Tooltip>
+        <Box display={'flex'} alignItems={'center'} flex={1}>
+          <Typography variant='body1' fontWeight={700} color='text.primary'
+          sx={{fontFamily}}>
+            {t("public.menuView")}:
+          </Typography>
+          <Box display={"flex"} alignItems={"center"} ml={1}>
+            <Tooltip title={t("public.listView")}>
+              <IconButton
+                onClick={() => {
+                  setListView(true);
+                  setCardView(false);
+                }}
+                sx={{
+                  bgcolor: listView ? "secondary.main" : "transparent",
+                  "&:hover": {
+                    bgcolor: listView ? "secondary.main" : "action.hover",
+                  },
+                  boxShadow: listView ? (theme) => `0 6px 20px ${theme.palette.primary.main}55` : "none",
+                }}
+              >
+                <ViewList sx={{ color: listView ? "background.default" : "text.primary" }} />
+              </IconButton>
+            </Tooltip>
 
-          <Tooltip title={t("public.cardView")}>
-            <IconButton
-              onClick={() => {
-                setListView(false);
-                setCardView(true);
-              }}
-              sx={{
-                bgcolor: cardView ? "secondary.main" : "transparent",
-                "&:hover": {
-                  bgcolor: cardView ? "secondary.main" : "action.hover",
-                },
-                boxShadow: cardView ? (theme) => `0 6px 20px ${theme.palette.primary.main}55` : "none",
-              }}
-            >
-              <ViewAgenda sx={{ color: cardView ? "background.default" : "text.primary", fontSize: 20 }} />
-            </IconButton>
-          </Tooltip>
+            <Tooltip title={t("public.cardView")}>
+              <IconButton
+                onClick={() => {
+                  setListView(false);
+                  setCardView(true);
+                }}
+                sx={{
+                  bgcolor: cardView ? "secondary.main" : "transparent",
+                  "&:hover": {
+                    bgcolor: cardView ? "secondary.main" : "action.hover",
+                  },
+                  boxShadow: cardView ? (theme) => `0 6px 20px ${theme.palette.primary.main}55` : "none",
+                }}
+              >
+                <ViewAgenda sx={{ color: cardView ? "background.default" : "text.primary", fontSize: 20 }} />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Box>
       </Box>
-      <Typography variant='h5' fontWeight={600} color='text.primary' mt={2} mb={1} sx={{fontFamily}}>
-        {t("public.categories")}
-      </Typography>
       <Tabs variant='scrollable' scrollButtons="auto" value={tabValue}
       onChange={(e, v) => setTabValue(v)} sx={{ "& .MuiTab-root": { fontFamily } }}>
             <Tab label={t("public.allCategories")}/>

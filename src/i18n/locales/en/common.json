@@ -641,6 +641,7 @@
         "viewItem": "View Item",
         "listView": "List View",
         "cardView": "Card View",
-        "menuView": "Menu View"
+        "menuView": "View",
+        "btn": "Address & Phone"
     }
 }
